@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -12,10 +13,14 @@ from rolepermissions.decorators import has_role_decorator
 def home_usuarios(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         if request.user.is_authenticated:
-            lista_usuarios = User.objects.filter(is_active=1)
+            lista_usuarios = User.objects.order_by('first_name').filter(is_active=1)
+            paginator = Paginator(lista_usuarios, 5)
+
+            page = request.GET.get('page')
+            usuarios = paginator.get_page(page)
 
             contexto = {
-                "lista_usuarios": lista_usuarios
+                "usuarios": usuarios
             }
 
             return render(request, 'usuarios/home-usuarios.html', contexto)

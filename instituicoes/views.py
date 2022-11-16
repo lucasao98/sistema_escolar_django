@@ -13,7 +13,7 @@ from instituicoes.models import Instituicao
 def home_instituicoes(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         if request.user.is_authenticated:
-            lista_instituicoes = Instituicao.objects.order_by('nome_instituicao').filter(is_active=1)
+            lista_instituicoes = Instituicao.objects.order_by('nome_instituicao').all()
             paginator = Paginator(lista_instituicoes, 5)
 
             page = request.GET.get('page')
