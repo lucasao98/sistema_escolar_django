@@ -11,11 +11,11 @@ from turmas.models import Turma
 
 
 @login_required()
-@has_role_decorator(['admin', 'diretor'], True)
+@has_role_decorator(['admin', 'diretor', 'professor'], True)
 def home_alunos(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         if request.user.is_authenticated:
-            lista_alunos = Aluno.objects.filter(is_active=1)
+            lista_alunos = Aluno.objects.order_by('nome_aluno').filter(is_active=1)
 
             contexto = {
                 "lista_alunos": lista_alunos
@@ -29,7 +29,7 @@ def home_alunos(request: HttpRequest) -> HttpResponse:
 
 
 @login_required()
-@has_role_decorator(['admin', 'diretor'], True)
+@has_role_decorator(['admin', 'diretor', 'professor'], True)
 def tela_create_aluno(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         if request.user.is_authenticated:
@@ -46,7 +46,7 @@ def tela_create_aluno(request: HttpRequest) -> HttpResponse:
 
 
 @login_required()
-@has_role_decorator(['admin', 'diretor'], True)
+@has_role_decorator(['admin', 'diretor', 'professor'], True)
 def create_aluno(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -82,7 +82,7 @@ def create_aluno(request: HttpRequest) -> HttpResponse:
 
 
 @login_required()
-@has_role_decorator(['admin', 'diretor'], True)
+@has_role_decorator(['admin', 'diretor', 'professor'], True)
 def tela_editar_aluno(request: HttpRequest, id_aluno: int) -> HttpResponse:
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -104,7 +104,7 @@ def tela_editar_aluno(request: HttpRequest, id_aluno: int) -> HttpResponse:
 
 
 @login_required()
-@has_role_decorator(['admin', 'diretor'], True)
+@has_role_decorator(['admin', 'diretor', 'professor'], True)
 def editar_aluno(request: HttpRequest, id_aluno: int) -> HttpResponse:
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -150,7 +150,7 @@ def editar_aluno(request: HttpRequest, id_aluno: int) -> HttpResponse:
 
 
 @login_required()
-@has_role_decorator(['admin', 'diretor'], True)
+@has_role_decorator(['admin', 'diretor', 'professor'], True)
 def deletar_aluno(request: HttpRequest, id_aluno: int) -> HttpResponse:
     if request.method == 'POST':
         if request.user.is_authenticated:

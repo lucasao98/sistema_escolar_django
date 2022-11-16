@@ -96,6 +96,8 @@ def editar_disciplina(request: HttpRequest, id_disciplina: int) -> HttpResponse:
 
             if request.POST['professor_id']:
                 disciplina.professor_id = request.POST['professor_id']
+            else:
+                disciplina.professor_id = disciplina.professor_id
 
             disciplina.save()
 

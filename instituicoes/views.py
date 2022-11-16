@@ -12,7 +12,7 @@ from instituicoes.models import Instituicao
 def home_instituicoes(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         if request.user.is_authenticated:
-            lista_instituicoes = Instituicao.objects.filter(is_active=1)
+            lista_instituicoes = Instituicao.objects.order_by('nome_instituicao').filter(is_active=1)
 
             contexto = {
                 "lista_instituicoes": lista_instituicoes

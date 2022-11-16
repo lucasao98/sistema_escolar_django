@@ -76,7 +76,7 @@ def tela_editar_turmas(request: HttpRequest, id_turma: int) -> HttpResponse:
 
             contexto = {
                 "professores": professores,
-                "turmaa": turma
+                "turma": turma
             }
 
             return render(request, 'turmas/editar-turma.html', contexto)
@@ -93,18 +93,18 @@ def editar_turma(request: HttpRequest, id_turma: int) -> HttpResponse:
         if request.user.is_authenticated:
             turma = Turma.objects.get(id=id_turma)
 
-            if request.POST['serie']:
-                turma.serie_turma = request.POST['serie']
+            if request.POST['serie_turma']:
+                turma.serie_turma = request.POST['serie_turma']
             else:
                 turma.serie_turma = turma.serie_turma
 
-            if request.POST['identificador']:
-                turma.identificador_turma = request.POST['identificador']
+            if request.POST['identificador_turma']:
+                turma.identificador_turma = request.POST['identificador_turma']
             else:
                 turma.identificador_turma = turma.identificador_turma
 
-            if request.POST['quantidade']:
-                turma.quantidade_alunos = request.POST['quantidade']
+            if request.POST['quantidade_alunos']:
+                turma.quantidade_alunos = request.POST['quantidade_alunos']
             else:
                 turma.quantidade_alunos = turma.quantidade_alunos
 
@@ -113,7 +113,7 @@ def editar_turma(request: HttpRequest, id_turma: int) -> HttpResponse:
 
             turma.save()
 
-            return HttpResponseRedirect(reverse('disciplinas:home-disciplinas'))
+            return HttpResponseRedirect(reverse('turmas:home-turmas'))
         else:
             return render(request, 'layouts/login.html')
     else:

@@ -15,7 +15,7 @@ from instituicoes.models import Instituicao
 def home_professores(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         if request.user.is_authenticated:
-            lista_professores = Professor.objects.filter(is_active=1)
+            lista_professores = Professor.objects.order_by('nome_professor').filter(is_active=1)
             contexto = {
                 "lista_professores": lista_professores
             }
