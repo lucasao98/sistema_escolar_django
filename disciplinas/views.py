@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -14,9 +15,13 @@ def home_disciplinas(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         if request.user.is_authenticated:
             lista_disciplinas = Disciplina.objects.all()
+            paginator = Paginator(lista_disciplinas, 5)
+
+            page = request.GET.get('page')
+            disciplinas= paginator.get_page(page)
 
             contexto = {
-                "lista_disciplinas": lista_disciplinas
+                "disciplinas": disciplinas
             }
 
             return render(request, 'disciplinas/home-disciplinas.html', contexto)

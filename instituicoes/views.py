@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -13,9 +14,13 @@ def home_instituicoes(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         if request.user.is_authenticated:
             lista_instituicoes = Instituicao.objects.order_by('nome_instituicao').filter(is_active=1)
+            paginator = Paginator(lista_instituicoes, 5)
+
+            page = request.GET.get('page')
+            instituicoes = paginator.get_page(page)
 
             contexto = {
-                "lista_instituicoes": lista_instituicoes
+                "instituicoes": instituicoes
             }
 
             return render(request, 'instituicoes/home-instituicoes.html', contexto)

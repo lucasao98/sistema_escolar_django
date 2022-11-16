@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -16,8 +17,13 @@ def home_professores(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         if request.user.is_authenticated:
             lista_professores = Professor.objects.order_by('nome_professor').filter(is_active=1)
+            paginator = Paginator(lista_professores, 5)
+
+            page = request.GET.get('page')
+            professores = paginator.get_page(page)
+
             contexto = {
-                "lista_professores": lista_professores
+                "professores": professores
             }
 
             return render(request, 'professores/home-professores.html', contexto)
