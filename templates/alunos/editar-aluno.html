@@ -1,0 +1,58 @@
+{% extends 'layouts/home.html' %}
+
+{% block title %}
+    Editar Aluno
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <h2>Editar Aluno</h2>
+        <div class="row mt-3">
+            <form action="{% url 'alunos:editar-aluno' aluno.id %}" method="post">
+                {% csrf_token %}
+                <div class="col-12">
+                    <label for="inputAddress" class="form-label w-50">Nome</label>
+                    <input type="text" class="form-control" name="nome" id="inputAddress" placeholder="João"
+                    value="{{ aluno.nome_aluno }}">
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress" class="form-label w-50 mt-2">Sobrenome</label>
+                    <input type="text" class="form-control" name="sobrenome" id="inputAddress"
+                           value="{{ aluno.sobrenome_aluno }}">
+                </div>
+                <div class="col-md-6 mt-2">
+                    <label for="inputEmail4" class="form-label">Email do Responsavel</label>
+                    <input type="email" class="form-control" id="inputEmail4"
+                           name="email" value="{{ aluno.email_responsavel }}">
+                </div>
+                <div class="col-md-6 mt-2">
+                    <label for="inputEmail4" class="form-label">Telefone do Responsável</label>
+                    <input type="tel" class="form-control" id="inputEmail4" name="telefone"
+                           value="{{ aluno.telefone_responsavel }}">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Idade Do Aluno</label>
+                    <input type="number" class="form-control" name="idade" value="{{ aluno.idade_aluno }}">
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress2" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="inputAddress2" name="username_aluno"
+                           value="{{ usuario.username }}">
+                </div>
+                <div class="col-md-6">
+                    <label>Turmas Disponiveis</label>
+                    <select class="form-select" name="turma_id" aria-label="Default select example">
+                        <option selected>Seleciona a turma</option>
+                        {% for turma in turmas %}
+                            <option value="{{ turma.id }}">{{ turma.serie_turma }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col mt-5">
+                    <a href="{% url 'alunos:home-alunos' %}" class="btn btn-primary me-3">Voltar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock conteudo %}

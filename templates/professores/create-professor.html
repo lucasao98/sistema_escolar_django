@@ -1,0 +1,54 @@
+{% extends 'layouts/home.html' %}
+
+{% block title %}
+    Cadastrar professor
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <h2>Cadastro de Professor</h2>
+        <form method="post" action="{% url 'professores:create-professor' %}" class="row g-3 mt-2">
+            {% csrf_token %}
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Nome</label>
+                <input type="text" class="form-control" name="nome_professor" id="inputAddress" placeholder="Augusto">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Sobrenome</label>
+                <input type="text" class="form-control" name="sobrenome_professor" id="inputAddress"
+                       placeholder="Neto Santos">
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" name="email_professor">
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Telefone</label>
+                <input type="tel" class="form-control" id="inputEmail4" name="telefone_professor">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="inputPassword4" name="senha_professor">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Username</label>
+                <input type="text" class="form-control" id="inputAddress2" name="username_professor"
+                       placeholder="joaogomes654">
+            </div>
+            <div class="col-md-6">
+                <label>Onde Ensina</label>
+                <select class="form-select" name="instituicao_id" aria-label="Default select example">
+                    <option selected>Seleciona a instituição</option>
+                    {% for instituicao in lista_instituicoes %}
+                    <option value="{{ instituicao.id }}">{{ instituicao.nome_instituicao }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-primary" href="{% url 'professores:home-professores' %}">Voltar</a>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </div>
+
+        </form>
+    </div>
+{% endblock conteudo %}

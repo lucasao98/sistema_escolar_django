@@ -1,0 +1,59 @@
+{% extends 'layouts/home.html' %}
+{% load permission_tags %}
+
+{% block title %}
+    Turmas
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <div class="row">
+            <div class="col-9">
+                <h2>Turmas</h2>
+            </div>
+            {% if user|has_role:'diretor' %}
+                <div class="col-3">
+                    <a class="btn btn-success" href="{% url 'turmas:tela-create-turma' %}">Adicionar Turma</a>
+                </div>
+            {% endif %}
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Série</th>
+                <th scope="col">Identificador Turma</th>
+                <th scope="col">Quantidade de Alunos</th>
+                <th scope="col">Professor</th>
+                {% if user|has_role:'diretor' %}
+                    <th scope="col">Ações</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for turma in lista_turmas %}
+                <tr>
+                    <td>{{ turma.serie_turma }}</td>
+                    <td>{{ turma.identificador_turma }}</td>
+                    <td>{{ turma.quantidade_alunos }}</td>
+                    <td>{{ turma.professor.nome_professor }} {{ turma.professor.sobrenome_professor }}</td>
+                    {% if user|has_role:'diretor' %}
+                        <td>
+                            <form action="{% url 'turmas:tela-editar-turma' turma.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{% url 'turmas:deletar-turma' turma.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

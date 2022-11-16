@@ -1,0 +1,44 @@
+{% extends 'layouts/home.html' %}
+
+{% block title %}
+    Editar Instituicão
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <h2>Editar Instituicão</h2>
+        <div class="row mt-3">
+            <form action="{% url 'instituicoes:editar-instituicao' instituicao.id %}" method="post">
+                {% csrf_token %}
+                <div class="col">
+                    <label>Nome da Instituição</label>
+                    <input type="text" class="form-control w-50 mb-2" name="nome"  value="{{ instituicao.nome_instituicao }}">
+                </div>
+                <div class="col mt-3">
+                    <label>Telefone da Instituição</label>
+                    <input type="text" class="form-control w-50" name="telefone" value="{{ instituicao.telefone_instituicao }}">
+                </div>
+                <div class="col mt-3">
+                    <label>Email da Instituição</label>
+                    <input type="text" class="form-control w-50" name="email" value="{{ instituicao.email_instituicao }}">
+                </div>
+                <div class="col mt-3">
+                    <label>Rua da Instituição</label>
+                    <input type="text" class="form-control w-50" name="rua" value="{{ instituicao.rua_instituicao }}">
+                </div>
+                <div class="col mt-3">
+                    <label>Cidade da Instituição</label>
+                    <input type="text" class="form-control w-50" name="cidade" value="{{ instituicao.cidade_instituicao }}">
+                </div>
+                <div class="col mt-3">
+                    <label>Pais da Instituição</label>
+                    <input type="text" class="form-control w-50" name="pais" value="{{ instituicao.pais_instituicao }}">
+                </div>
+                <div class="col mt-5">
+                    <a href="{% url 'instituicoes:home-instituicoes' %}" class="btn btn-primary me-3">Voltar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock conteudo %}

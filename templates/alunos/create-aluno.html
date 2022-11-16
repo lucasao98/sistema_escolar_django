@@ -1,0 +1,60 @@
+{% extends 'layouts/home.html' %}
+
+{% block title %}
+    Cadastrar Aluno
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <h2>Cadastro de Aluno</h2>
+        <form method="post" action="{% url 'alunos:create-aluno' %}" class="row g-3 mt-2">
+            {% csrf_token %}
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Nome</label>
+                <input type="text" class="form-control" name="nome_aluno" id="inputAddress" placeholder="João">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Sobrenome</label>
+                <input type="text" class="form-control" name="sobrenome_aluno" id="inputAddress"
+                       placeholder="Gomes">
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Email do Responsavel</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="joao@gmail.com"
+                       name="email_responsavel">
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Telefone do Responsável</label>
+                <input type="tel" class="form-control" id="inputEmail4" placeholder="(73)92222-5555"
+                       name="telefone_responsavel">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="inputPassword4" name="senha_aluno">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Idade Do Aluno</label>
+                <input type="number" class="form-control" name="idade_aluno">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Username</label>
+                <input type="text" class="form-control" id="inputAddress2" name="username_aluno"
+                       placeholder="joaogomes654">
+            </div>
+            <div class="col-md-6">
+                <label>Turmas Disponiveis</label>
+                <select class="form-select" name="turma_id" aria-label="Default select example">
+                    <option selected>Seleciona a turma</option>
+                    {% for turma in turmas %}
+                        <option value="{{ turma.id }}">{{ turma.serie_turma }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-primary" href="{% url 'alunos:home-alunos' %}">Voltar</a>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </div>
+
+        </form>
+    </div>
+{% endblock conteudo %}

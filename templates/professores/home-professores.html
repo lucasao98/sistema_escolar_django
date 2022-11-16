@@ -1,0 +1,50 @@
+{% extends 'layouts/home.html' %}
+{% block title %}
+    Professores
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <div class="row">
+            <div class="col-9">
+                <h2>Professores</h2>
+            </div>
+            <div class="col-3">
+                <a class="btn btn-success" href="{% url 'professores:tela-create-professor' %}">Adicionar Professor</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Instituição</th>
+                <th scope="col">Ações</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for professor in lista_professores %}
+                <tr>
+                    <td>{{ professor.nome_professor }} {{ professor.sobrenome_professor }}</td>
+                    <td>{{ professor.email_professor }}</td>
+                    <td>{{ professor.instituicao.nome_instituicao }}</td>
+
+                    <td>
+                        <form action="{% url 'professores:tela-editar-professor' professor.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url 'professores:deletar-professor' professor.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

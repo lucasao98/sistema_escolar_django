@@ -1,0 +1,32 @@
+{% extends 'layouts/home.html' %}
+
+{% block title %}
+    Cadastrar Disciplina
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <h2>Cadastro de Disciplina</h2>
+        <form method="post" action="{% url 'disciplinas:create-disciplina' %}" class="row g-3 mt-2">
+            {% csrf_token %}
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Nome da Disciplina</label>
+                <input type="text" class="form-control w-50" name="nome_disciplina" id="inputAddress"
+                       placeholder="Portugues">
+            </div>
+            <div class="col-md-6">
+                <label>Professor para lecionar essa disciplina</label>
+                <select class="form-select" name="professor_id" aria-label="Default select example">
+                    <option selected>Seleciona o professor</option>
+                    {% for professor in professores %}
+                        <option value="{{ professor.id }}">{{ professor.nome_professor }} {{ professor.sobrenome_professor }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-primary" href="{% url 'disciplinas:home-disciplinas' %}">Voltar</a>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+{% endblock conteudo %}

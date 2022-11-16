@@ -1,0 +1,56 @@
+{% extends 'layouts/home.html' %}
+{% block title %}
+    Usuários
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <div class="row">
+            <div class="col-9">
+                <h2>Usuários</h2>
+            </div>
+            <div class="col-3">
+                <a class="btn btn-success" href="{% url 'usuarios:tela-create-usuario' %}">Adicionar Usuário</a>
+            </div>
+        </div>
+        {% if message %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Ações</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for usuario in lista_usuarios %}
+                <tr>
+
+                    <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>
+                        <form action="{% url 'usuarios:editar-usuario-tela' usuario.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url 'usuarios:deletar-usuario' usuario.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

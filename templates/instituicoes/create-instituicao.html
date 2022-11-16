@@ -1,0 +1,42 @@
+{% extends 'layouts/home.html' %}
+
+{% block title %}
+    Cadastrar instituicão
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <h2>Cadastro de Usuário</h2>
+        <form method="post" action="{% url 'instituicoes:create-instituicao' %}" class="row g-3 mt-2">
+            {% csrf_token %}
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Nome da Instituição</label>
+                <input type="text" class="form-control" name="nome_instituicao" id="inputAddress" placeholder="Escola São Jorge">
+            </div>
+             <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Telefone</label>
+                <input type="text" class="form-control" name="telefone_instituicao" id="inputAddress" placeholder="(73)3221-6635">
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" name="email_instituicao">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Rua</label>
+                <input type="text" class="form-control" id="inputAddress2" name="rua_instituicao" placeholder="Avenida Paulista">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Cidade</label>
+                <input type="text" class="form-control" id="inputAddress2" name="cidade_instituicao" placeholder="Avenida Paulista">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Pais</label>
+                <input type="text" class="form-control" id="inputAddress2" name="pais_instituicao" placeholder="Inglaterra">
+            </div>
+            <div class="col-12">
+                <a class="btn btn-primary" href="{% url 'usuarios:home-usuarios' %}">Voltar</a>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+{% endblock conteudo %}

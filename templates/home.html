@@ -1,0 +1,49 @@
+{% extends 'layouts/home.html' %}
+{% load permission_tags %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded" id="hanging-icons">
+        {% if user|has_role:'admin' %}
+            <h2 class="pb-2 border-bottom text-center">Administração</h2>
+        {% endif %}
+        {% if user|has_role:'diretor' %}
+            <h2 class="pb-2 border-bottom text-center">Painel da Direção</h2>
+        {% endif %}
+        {% if user|has_role:'professor' %}
+            <h2 class="pb-2 border-bottom text-center">Painel de Professor</h2>
+        {% endif %}
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start">
+                <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                </div>
+                <div>
+                    <h3 class="fs-2"><i class="bi bi-file-person-fill"></i>Usuários</h3>
+                    <p>Com esse sistema será possível tanto adicionar, quanto deletar, procurar ou editar
+                        qualquer usuário das escolas.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                </div>
+                <div>
+                    <h3 class="fs-2"><i class="bi bi-building-fill"></i>Gestão do Sistema</h3>
+                    <p>Além de ser possível adicionar diretores, também será permitido adicionar
+                        instituições
+                        de ensino, sejam elas escolas primárias, secundárias ou até mesmo de ensino
+                        superior.</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div class="icon-square text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                </div>
+                <div>
+                    <h3 class="fs-2"><i class="bi bi-folder-fill"></i>Gestão de Escolas</h3>
+                    <p>Esse sistema será útil para auxiliar tanto diretores a melhorar o fluxo de controle e
+                        gestão da sua escola, quanto um reitor gerir sua universidade, ou até mesmo uma
+                        escola
+                        de idiomas. É perfeito para seu tipo de negócio.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+{% load permission_tags %}
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Home{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <script language="JavaScript" type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid bg-default">
+<button class="btn btn-primary botao-esconder"><i class="bi bi-arrow-left"></i></button>
+<button class="btn btn-primary botao-mostrar"><i class="bi bi-arrow-right"></i></button>
+    <div class="row">
+        <div class="col-md-3" atributo-hide>
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light rounded m-2 menu-sidebar" style="width: 280px;height: 640px">
+                <span class="fs-4">Gestão Escolar</span>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'home:home' %}" class="nav-link text-dark" id="link-home" aria-current="page">
+                            Home
+                        </a>
+                    </li>
+                    {% if user|has_role:'admin' %}
+                        <li>
+                            <a href="{% url 'usuarios:home-usuarios' %}" id="link-admins" class="nav-link text-dark">
+                                Usuários
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'instituicoes:home-instituicoes' %}" id="link-inst"
+                               class="nav-link text-dark">
+                                Instituições
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if user|has_role:'diretor,admin' %}
+                        <li>
+                            <a href="{% url 'alunos:home-alunos' %}" id="link-admins" class="nav-link text-dark">
+                                Alunos
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if user|has_role:'diretor' %}
+                        <li>
+                            <a href="{% url 'disciplinas:home-disciplinas' %}" id="link-admins"
+                               class="nav-link text-dark">
+                                Disciplina
+                            </a>
+                        </li>
+                        <li>
+                    {% endif %}
+                    {% if user|has_role:'diretor,admin' %}
+                        <a href="{% url 'professores:home-professores' %}" id="link-admins" class="nav-link text-dark">
+                            Professores
+                        </a>
+                        </li>
+                    {% endif %}
+                    {% if user|has_role:'diretor,professor' %}
+                        <li>
+                            <a href="{% url 'turmas:home-turmas' %}" id="link-admins" class="nav-link text-dark">
+                                Turma
+                            </a>
+                        </li>
+                    {% endif %}
+                     {% if user|has_role:'professor' %}
+                        <li>
+                            <a href="" id="link-admins" class="nav-link text-dark">
+                                Aulas
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <hr>
+                <ul class="nav nav-pills">
+                    <a class="nav-link text-dark" href="{% url 'login:logout-usuario' %}">Sair</a>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            {% block conteudo %}
+            {% endblock %}
+        </div>
+        <div class="container bg bg-light navbar-fixed-bottom footer-fixed mt-2">
+            <footer class="py-4 my-2">
+                <p class="text-center text-muted">&copy; Desenvolvido por Luca Sacramento</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+<script>
+    const menusidebar = $('.botao-esconder')
+    const menusidebar_voltar = $('.botao-mostrar')
+
+    menusidebar_voltar.css('display','none')
+
+    menusidebar.on("click", function (){
+        $('[atributo-hide]').hide(2000)
+        menusidebar.css('display','none')
+        menusidebar_voltar.css('display','block')
+    })
+
+    menusidebar_voltar.click(function(){
+        $('[atributo-hide]').show(2000)
+        menusidebar.css('display','block')
+        menusidebar_voltar.css('display','none')
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends 'layouts/home.html' %}
+
+{% block title %}
+    Editar Disciplina
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <h2>Editar Disciplina</h2>
+        <div class="row mt-3">
+            <form action="{% url 'disciplinas:editar-disciplina' disciplina.id %}" method="post">
+                {% csrf_token %}
+                <div class="col">
+                    <label>Nome da Disciplina</label>
+                    <input type="text" class="form-control w-50 mb-2" name="nome"
+                           value="{{ disciplina.nome_disciplina }}">
+                </div>
+                <div class="col-md-6">
+                    <label>Professor para lecionar</label>
+                    <select class="form-select" name="professor_id" aria-label="Default select example">
+                        <option selected>Seleciona o professor</option>
+                        {% for professor in professores %}
+                            <option value="{{ professor.id }}">{{ professor.nome_professor }} {{ professor.sobrenome_professor }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col mt-5">
+                    <a href="{% url 'disciplinas:home-disciplinas' %}" class="btn btn-primary me-3">Voltar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock conteudo %}

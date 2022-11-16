@@ -1,0 +1,68 @@
+{% extends 'layouts/home.html' %}
+
+{% block title %}
+    Cadastrar usuário
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <h2>Cadastro de Usuário</h2>
+        <form method="post" action="{% url 'usuarios:create-usuario' %}" class="row g-3 mt-2">
+            {% csrf_token %}
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Nome</label>
+                <input type="text" class="form-control" name="nome_usuario" id="inputAddress" placeholder="Matheus">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Sobrenome</label>
+                <input type="text" class="form-control" name="sobrenome_usuario" id="inputAddress"
+                       placeholder="Silva de Oliveira">
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" name="email_usuario">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Password</label>
+                <input type="password" class="form-control" id="inputPassword4" name="senha_usuario">
+            </div>
+            <label>Função do usuario</label>
+            <div class="row border border-secondary m-2">
+                <div class="form-check col">
+                    <input class="form-check-input" type="radio" name="funcao-usuario" value="diretor" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Diretor
+                    </label>
+                </div>
+                <div class="form-check col">
+                    <input class="form-check-input" type="radio" name="funcao-usuario" value="professor" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Professor
+                    </label>
+                </div>
+                <div class="form-check col">
+                    <input class="form-check-input" type="radio" name="funcao-usuario" value="aluno" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Aluno
+                    </label>
+                </div>
+                <div class="form-check col">
+                    <input class="form-check-input" type="radio" name="funcao-usuario" value="admin" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Admin
+                    </label>
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Username</label>
+                <input type="text" class="form-control" id="inputAddress2" name="username_usuario"
+                       placeholder="ZDarkness">
+            </div>
+
+            <div class="col-12">
+                <a class="btn btn-primary" href="{% url 'usuarios:home-usuarios' %}">Voltar</a>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+{% endblock conteudo %}
