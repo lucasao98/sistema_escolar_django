@@ -12,11 +12,11 @@
             <div class="col-12">
                 <label for="inputAddress" class="form-label w-50">Nome da Disciplina</label>
                 <input type="text" class="form-control w-50" name="nome_disciplina" id="inputAddress"
-                       placeholder="Portugues">
+                       placeholder="Portugues" required>
             </div>
             <div class="col-md-6">
                 <label>Professor para lecionar essa disciplina</label>
-                <select class="form-select" name="professor_id" aria-label="Default select example">
+                <select required class="form-select" name="professor_id" aria-label="Default select example">
                     <option selected>Seleciona o professor</option>
                     {% for professor in professores %}
                         <option value="{{ professor.id }}">{{ professor.nome_professor }} {{ professor.sobrenome_professor }}</option>

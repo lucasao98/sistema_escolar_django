@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layouts/home.html' %}
 
-</body>
-</html>
+{% block title %}
+    Editar Turma
+{% endblock %}
+
+{% block conteudo %}
+    <div class="container px-4 py-5 bg bg-light mt-3 rounded">
+        <h2>Editar de Turma</h2>
+        <form method="post" action="{% url 'turmas:editar-turma' turma.id %}" class="row g-3 mt-2">
+            {% csrf_token %}
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Série</label>
+                <input type="text" class="form-control w-25" name="serie_turma" id="inputAddress"
+                       value="{{ turma.serie_turma }}">
+            </div>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label w-50">Identificador de Turma</label>
+                <input type="text" class="form-control w-25" name="identificador_turma" id="inputAddress"
+                       value="{{ turma.identificador_turma }}">
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Quantidade de Alunos</label>
+                <input type="number" class="form-control" id="inputEmail4" name="quantidade_alunos"
+                       value="{{ turma.quantidade_alunos }}">
+            </div>
+            <div class="col-md-6">
+                <label>Professor da Turma</label>
+                <select class="form-select" name="professor_id" aria-label="Default select example">
+                    <option selected>Selecione o professor</option>
+                    {% for professor in professores %}
+                    <option value="{{ professor.id }}">{{ professor.nome_professor }} {{ professor.sobrenome_professor }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-primary" href="{% url 'turmas:home-turmas' %}">Voltar</a>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+            </div>
+
+        </form>
+    </div>
+{% endblock conteudo %}

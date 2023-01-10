@@ -6,6 +6,9 @@
         {% if user|has_role:'admin' %}
             <h2 class="pb-2 border-bottom text-center">Administração</h2>
         {% endif %}
+        {% if user|has_role:'aluno' %}
+            <h2 class="pb-2 border-bottom text-center">Painel de Aluno</h2>
+        {% endif %}
         {% if user|has_role:'diretor' %}
             <h2 class="pb-2 border-bottom text-center">Painel da Direção</h2>
         {% endif %}

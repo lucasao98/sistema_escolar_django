@@ -1,4 +1,6 @@
 {% extends 'layouts/home.html' %}
+{% load permission_tags %}
+
 {% block title %}
     Alunos
 {% endblock %}
@@ -9,9 +11,11 @@
             <div class="col-9">
                 <h2>Alunos</h2>
             </div>
-            <div class="col-3">
-                <a class="btn btn-success" href="{% url 'alunos:tela-create-aluno' %}">Adicionar Aluno</a>
-            </div>
+            {% if user|has_role:'admin,diretor' %}
+                <div class="col-3">
+                    <a class="btn btn-success" href="{% url 'alunos:tela-create-aluno' %}">Adicionar Aluno</a>
+                </div>
+            {% endif %}
         </div>
         {% if message %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -27,12 +31,14 @@
                 <th scope="col">Email Responsável</th>
                 <th scope="col">Telefone Responsável</th>
                 <th scope="col">Turma</th>
-                <th scope="col">Ações</th>
+                {% if user|has_role:'admin,diretor' %}
+                    <th scope="col">Ações</th>
+                {% endif %}
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-            {% for aluno in lista_alunos %}
+            {% for aluno in alunos %}
                 <tr>
                     <td>{{ aluno.nome_aluno }} {{ aluno.sobrenome_aluno }}</td>
                     <td>{{ aluno.idade_aluno }}</td>
@@ -40,21 +46,42 @@
                     <td>{{ aluno.telefone_responsavel }}</td>
                     <td>{{ aluno.turma.serie_turma }} {{ aluno.turma.identificador_turma }} </td>
                     <td>{{ disciplina.professor.nome_professor }} {{ disciplina.professor.sobrenome_professor }}</td>
-                    <td>
-                        <form action="{% url 'alunos:tela-editar-aluno' aluno.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i></button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="{% url 'alunos:deletar-aluno' aluno.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
-                        </form>
-                    </td>
+                    {% if user|has_role:'admin,diretor' %}
+                        <td>
+                            <form action="{% url 'alunos:tela-editar-aluno' aluno.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-pencil-square"></i>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{% url 'alunos:deletar-aluno' aluno.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="pagination">
+                    <span class="step-links">
+                        {% if aluno.has_previous %}
+                            <a class="btn btn-warning m-2"
+                               href="?page={{ alunos.previous_page_number }}">Anterior</a>
+                        {% endif %}
+
+                        <span class="current">
+                        {{ alunos.number }} de {{ alunos.paginator.num_pages }}
+                    </span>
+
+                        {% if alunos.has_next %}
+                            <a class="btn btn-primary m-2" href="?page={{ alunos.next_page_number }}">Próxima</a>
+                        {% endif %}
+                    </span>
+            </div>
+        </div>
     </div>
 {% endblock %}

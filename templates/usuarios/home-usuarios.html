@@ -30,7 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for usuario in lista_usuarios %}
+            {% for usuario in usuarios %}
                 <tr>
 
                     <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
@@ -52,5 +52,23 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="pagination">
+                    <span class="step-links">
+                        {% if usuarios.has_previous %}
+                            <a class="btn btn-warning m-2"
+                               href="?page={{ usuarios.previous_page_number }}">Anterior</a>
+                        {% endif %}
+
+                        <span class="current">
+                        {{ usuarios.number }} de {{ usuarios.paginator.num_pages }}
+                    </span>
+
+                        {% if usuarios.has_next %}
+                            <a class="btn btn-primary m-2" href="?page={{ usuarios.next_page_number }}">Próxima</a>
+                        {% endif %}
+                    </span>
+            </div>
+        </div>
     </div>
 {% endblock %}

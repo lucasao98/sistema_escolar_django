@@ -11,42 +11,42 @@
             {% csrf_token %}
             <div class="col-12">
                 <label for="inputAddress" class="form-label w-50">Nome</label>
-                <input type="text" class="form-control" name="nome_aluno" id="inputAddress" placeholder="João">
+                <input type="text" class="form-control" name="nome_aluno" id="inputAddress" placeholder="João" required>
             </div>
             <div class="col-12">
                 <label for="inputAddress" class="form-label w-50">Sobrenome</label>
                 <input type="text" class="form-control" name="sobrenome_aluno" id="inputAddress"
-                       placeholder="Gomes">
+                       placeholder="Gomes" required>
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Email do Responsavel</label>
                 <input type="email" class="form-control" id="inputEmail4" placeholder="joao@gmail.com"
-                       name="email_responsavel">
+                       name="email_responsavel" required>
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Telefone do Responsável</label>
                 <input type="tel" class="form-control" id="inputEmail4" placeholder="(73)92222-5555"
-                       name="telefone_responsavel">
+                       name="telefone_responsavel" required>
             </div>
             <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="inputPassword4" name="senha_aluno">
+                <input type="password" class="form-control" id="inputPassword4" name="senha_aluno" required>
             </div>
             <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">Idade Do Aluno</label>
-                <input type="number" class="form-control" name="idade_aluno">
+                <input type="number" class="form-control" name="idade_aluno" required>
             </div>
             <div class="col-12">
                 <label for="inputAddress2" class="form-label">Username</label>
                 <input type="text" class="form-control" id="inputAddress2" name="username_aluno"
-                       placeholder="joaogomes654">
+                       placeholder="joaogomes654" required>
             </div>
             <div class="col-md-6">
                 <label>Turmas Disponiveis</label>
-                <select class="form-select" name="turma_id" aria-label="Default select example">
+                <select class="form-select" name="turma_id" aria-label="Default select example" required>
                     <option selected>Seleciona a turma</option>
                     {% for turma in turmas %}
-                        <option value="{{ turma.id }}">{{ turma.serie_turma }}</option>
+                        <option value="{{ turma.id }}">{{ turma.serie_turma }} {{ turma.identificador_turma }}</option>
                     {% endfor %}
                 </select>
             </div>

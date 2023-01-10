@@ -10,7 +10,8 @@
                 <h2>Disciplinas</h2>
             </div>
             <div class="col-3">
-                <a class="btn btn-success" href="{% url 'disciplinas:tela-create-disciplina' %}">Adicionar Disciplina</a>
+                <a class="btn btn-success" href="{% url 'disciplinas:tela-create-disciplina' %}">Adicionar
+                    Disciplina</a>
             </div>
         </div>
         {% if message %}
@@ -29,7 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for disciplina in lista_disciplinas %}
+            {% for disciplina in disciplinas %}
                 <tr>
                     <td>{{ disciplina.nome_disciplina }}</td>
                     <td>{{ disciplina.professor.nome_professor }} {{ disciplina.professor.sobrenome_professor }}</td>
@@ -49,5 +50,23 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="pagination">
+                    <span class="step-links">
+                        {% if disciplinas.has_previous %}
+                            <a class="btn btn-warning m-2"
+                               href="?page={{ disciplinas.previous_page_number }}">Anterior</a>
+                        {% endif %}
+
+                        <span class="current">
+                        {{ disciplinas.number }} de {{ disciplinas.paginator.num_pages }}
+                    </span>
+
+                        {% if disciplinas.has_next %}
+                            <a class="btn btn-primary m-2" href="?page={{ disciplinas.next_page_number }}">Próxima</a>
+                        {% endif %}
+                    </span>
+            </div>
+        </div>
     </div>
 {% endblock %}

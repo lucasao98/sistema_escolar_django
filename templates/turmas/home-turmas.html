@@ -30,7 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for turma in lista_turmas %}
+            {% for turma in turmas %}
                 <tr>
                     <td>{{ turma.serie_turma }}</td>
                     <td>{{ turma.identificador_turma }}</td>
@@ -55,5 +55,23 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="pagination">
+                    <span class="step-links">
+                        {% if turmas.has_previous %}
+                            <a class="btn btn-warning m-2"
+                               href="?page={{ turmas.previous_page_number }}">Anterior</a>
+                        {% endif %}
+
+                        <span class="current">
+                        {{ turmas.number }} de {{ turmas.paginator.num_pages }}
+                    </span>
+
+                        {% if turmas.has_next %}
+                            <a class="btn btn-primary m-2" href="?page={{ turmas.next_page_number }}">Próxima</a>
+                        {% endif %}
+                    </span>
+            </div>
+        </div>
     </div>
 {% endblock %}

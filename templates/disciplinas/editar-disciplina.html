@@ -17,8 +17,8 @@
                 </div>
                 <div class="col-md-6">
                     <label>Professor para lecionar</label>
-                    <select class="form-select" name="professor_id" aria-label="Default select example">
-                        <option selected>Seleciona o professor</option>
+                    <select autofocus class="form-select" name="professor_id" aria-label="Default select example">
+                        <option>Seleciona o professor</option>
                         {% for professor in professores %}
                             <option value="{{ professor.id }}">{{ professor.nome_professor }} {{ professor.sobrenome_professor }}</option>
                         {% endfor %}
